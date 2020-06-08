@@ -1,7 +1,7 @@
 # Business Talk Digital
 
 A global voice solution to rationalize telephony services carrying any domestic and international calls.
-Business Talk - an Orange Business Services solution - proposes a complete API for its customers, which is accessible on the [Orange Developper Portal](https://developer.orange.com/apis/businesstalk).
+Business Talk - an Orange Business Services solution - proposes a complete API for its customers, which is accessible on the [Orange Developer Portal](https://developer.orange.com/apis/businesstalk).
 
 # API Examples
 
