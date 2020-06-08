@@ -10,3 +10,4 @@ You can find in this repository Postman examples of API scenarios allowing to pe
 - number range requests
 - portability requests
 
+Other functions such as "number move" or "delete site" are available
