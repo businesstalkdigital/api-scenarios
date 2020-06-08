@@ -1,0 +1,1930 @@
+{
+	"info": {
+		"_postman_id": "9e7ec8c7-feb2-42d9-a53d-829ea9ac22a0",
+		"name": "Business Talk Sandbox",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Authentication",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "610de0c9-7c88-4d37-bfe4-10ad3b72f41d",
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f0004dbe-4b63-4994-bd46-a8f099687875",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"BTD_access_token\", jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Basic bVFQVnBLa0dSbGxHcG1YWVRLU1Q3cjZhblRWYkNmY3k6NHdheWxCVUhpWHlLUHlBTQ=="
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api.orange.com/oauth/v2/token",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"oauth",
+						"v2",
+						"token"
+					]
+				},
+				"description": "Authentication"
+			},
+			"response": []
+		},
+		{
+			"name": "2.1 Get customer info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d000228a-c32a-4de0-b69b-29633f028a93",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"customerCode\", jsonData[0].customerCode)\r",
+							"pm.environment.set(\"name\", jsonData[0].name)\r",
+							"pm.environment.set(\"pricingApprovalNumber\", jsonData[0].pricingApprovalNumber)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"type": "text",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					},
+					{
+						"key": "",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers"
+					]
+				},
+				"description": "All contacts"
+			},
+			"response": []
+		},
+		{
+			"name": "2.2 Get VPN info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa467166-d771-423f-becc-54bd72c1396a",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"vpn_Id\", jsonData[4].vpnId);\r",
+							"pm.environment.set(\"vpn_code\", jsonData[4].vpnCode);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"type": "text",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					},
+					{
+						"key": "",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customer_code}}/vpns",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customer_code}}",
+						"vpns"
+					]
+				},
+				"description": "All contacts"
+			},
+			"response": []
+		},
+		{
+			"name": "2.3 Get BANs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6a51c683-c197-4d28-8646-4140b69009d1",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"billingAccountNumber\", jsonData[0].billingAccountNumber);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"type": "text",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					},
+					{
+						"key": "",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customerCode}}/billingaccounts",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customerCode}}",
+						"billingaccounts"
+					]
+				},
+				"description": "All contacts"
+			},
+			"response": []
+		},
+		{
+			"name": "2.4 Get trunk list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d547c90f-1394-409a-8a2a-ccca00c94662",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"billingAccountNumber\", jsonData[0].billingAccountNumber);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"type": "text",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					},
+					{
+						"key": "",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customerCode}}/billingaccounts",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customerCode}}",
+						"billingaccounts"
+					]
+				},
+				"description": "All contacts"
+			},
+			"response": []
+		},
+		{
+			"name": "2.4 Get trunk detail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7f5e14f0-4367-470d-93e3-16371a5c671e",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"billingAccountNumber\", jsonData[0].billingAccountNumber);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"type": "text",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					},
+					{
+						"key": "",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customerCode}}/billingaccounts",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customerCode}}",
+						"billingaccounts"
+					]
+				},
+				"description": "All contacts"
+			},
+			"response": []
+		},
+		{
+			"name": "4. Order a site",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ec0aa00a-8ade-4578-a77c-90f697f1e024",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"voiceSiteId\", jsonData.serviceParameters.voiceSiteId);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"type": "text",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					},
+					{
+						"key": "",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"parameters\": {\r\n    \"technicalSiteName\": \"Demo Api site EUR\",\r\n    \"customerSiteLabel\": \"Demo Api site EUR\",\r\n    \"country\": \"FR\",\r\n    \"vpnId\": \"{{vpnId}}\",\r\n    \"voiceSiteType\": \"corporate\",\r\n    \"location\": \"Paris\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customerCode}}/orders/voicesite",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customerCode}}",
+						"orders",
+						"voicesite"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.1 Get site details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a6a1b14b-c38b-411b-a29a-4ee7fb4a7814",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"technicalSiteName\", jsonData.administrative.technicalSiteName);\r",
+							"pm.environment.set(\"customerSiteLabel\", jsonData.administrative.customerSiteLabel);\r",
+							"pm.environment.set(\"countryIsoCode\", jsonData.administrative.country);\r",
+							"pm.environment.set(\"a2\", jsonData.voiceAddress.a2);\r",
+							"pm.environment.set(\"a3\", jsonData.voiceAddress.a3);\r",
+							"pm.environment.set(\"a6\", jsonData.voiceAddress.a6);\r",
+							"pm.environment.set(\"hno\", jsonData.voiceAddress.hno);\r",
+							"pm.environment.set(\"sts\", jsonData.voiceAddress.sts);\r",
+							"pm.environment.set(\"a4\", jsonData.voiceAddress.a4);\r",
+							"pm.environment.set(\"pc\", jsonData.voiceAddress.pc);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"type": "text",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					},
+					{
+						"key": "",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customerCode}}/voicesites/{{voiceSiteId}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customerCode}}",
+						"voicesites",
+						"{{voiceSiteId}}"
+					]
+				},
+				"description": "All contacts"
+			},
+			"response": []
+		},
+		{
+			"name": "5.1 Configure site admin options",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "718faf3f-311e-4595-a997-a8083b167110",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"type": "text",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					},
+					{
+						"key": "",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerSiteLabel\": \"{{customerSiteLabel}}\",\r\n  \"technicalSiteName\": \"{{technicalSiteName}}\",\r\n  \"billingAccountNumber\": \"{{billingAccountNumber}}\",\r\n  \"location\": \"Paris\",\r\n  \"pricingApprovalNumber\": \"{{pricingApprovalNumber}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customerCode}}/voicesites/{{voiceSiteId}}/administrative",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customerCode}}",
+						"voicesites",
+						"{{voiceSiteId}}",
+						"administrative"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5.2 Configure trunk",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"localVoice\": \"active\",\r\n  \"cliManagement\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customer_code}}/voicesites/{{voice_Site_Id}}/options",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customer_code}}",
+						"voicesites",
+						"{{voice_Site_Id}}",
+						"options"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5.3 Configure address",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"a1\": \"string\",\r\n  \"a2\": \"75\", //Department code\r\n  \"a3\": \"Paris\", //City\r\n  \"a4\": \"string\",\r\n  \"a5\": \"string\",\r\n  \"a6\": \"Violet\", //Street name\r\n  \"hno\": \"60\", //street numnber\r\n  \"sts\": \"r\", //Street type\r\n  \"hns\": \"string\",\r\n  \"flr\": \"string\",\r\n  \"bld\": \"string\",\r\n  \"room\": \"string\",\r\n  \"pc\": \"75015\", //Postal Code\r\n  \"pcn\": \"string\",\r\n  \"pobox\": \"string\",\r\n  \"prd\": \"string\",\r\n  \"pod\": \"string\",\r\n  \"unit\": \"string\",\r\n  \"addrExtInfo1\": \"string\",\r\n  \"addrExtInfo2\": \"string\",\r\n  \"addrExtInfo3\": \"string\",\r\n  \"addrExtInfo4\": \"string\",\r\n  \"addrExtInfo5\": \"string\",\r\n  \"addrExtInfo6\": \"string\",\r\n  \"addrExtInfo7\": \"string\",\r\n  \"addrExtInfo8\": \"string\",\r\n  \"addrExtInfo9\": \"string\",\r\n  \"addrExtInfo10\": \"string\",\r\n  \"dialZoneId\": \"string\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customerCode}}/voicesites/{{voiceSiteId}}/voiceaddress",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customerCode}}",
+						"voicesites",
+						"{{voiceSiteId}}",
+						"voiceaddress"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5.4 Configure local voice",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"localVoice\": \"active\",\r\n  \"cliManagement\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customer_code}}/voicesites/{{voice_Site_Id}}/options",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customer_code}}",
+						"voicesites",
+						"{{voice_Site_Id}}",
+						"options"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5.5 Submit site",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"simulate\": false,\r\n  \"provisioningState\": \"provisioningPending\"\r\n}\t",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customerCode}}/voicesites/{{voiceSiteId}}/provisioningState",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customerCode}}",
+						"voicesites",
+						"{{voiceSiteId}}",
+						"provisioningState"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5.5 Edit site",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"simulate\": false,\r\n  \"provisioningState\": \"provisioningPending\"\r\n}\t",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customerCode}}/voicesites/{{voiceSiteId}}/provisioningState",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customerCode}}",
+						"voicesites",
+						"{{voiceSiteId}}",
+						"provisioningState"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5.5 Get site status",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"simulate\": false,\r\n  \"provisioningState\": \"provisioningPending\"\r\n}\t",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customerCode}}/voicesites/{{voiceSiteId}}/provisioningState",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customerCode}}",
+						"voicesites",
+						"{{voiceSiteId}}",
+						"provisioningState"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. Get number types",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "14e19f0a-81bd-489c-bf5e-521d52e42599",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					},
+					{
+						"key": "",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/countries/{{country}}/dialzones?numbertype&name=Paris",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"countries",
+						"{{country}}",
+						"dialzones"
+					],
+					"query": [
+						{
+							"key": "numbertype",
+							"value": null
+						},
+						{
+							"key": "name",
+							"value": "Paris"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6.1 Get dial zones",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "61bd4a3c-1e21-4ca3-9b01-6cd51234f8f9",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"dialZoneID\", jsonData[0].dialZoneId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					},
+					{
+						"key": "",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/countries/{{countryIsoCode}}/dialzones?numberType=PSTN&name=Paris",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"countries",
+						"{{countryIsoCode}}",
+						"dialzones"
+					],
+					"query": [
+						{
+							"key": "numberType",
+							"value": "PSTN"
+						},
+						{
+							"key": "name",
+							"value": "Paris"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6.2 Get DID availability",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4b0607b1-46a1-4512-b7ec-461059d39612",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"voiceSiteId\", jsonData[0].siteId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "1BjWMoNbfuFa2n2FoTLvGNWQAGup",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"type": "text",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/didnumberstocks?customerCode={{customerCode}}&rangeSize=10&voiceSiteId={{voiceSiteId}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"didnumberstocks"
+					],
+					"query": [
+						{
+							"key": "customerCode",
+							"value": "{{customerCode}}"
+						},
+						{
+							"key": "rangeSize",
+							"value": "10"
+						},
+						{
+							"key": "voiceSiteId",
+							"value": "{{voiceSiteId}}"
+						},
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				},
+				"description": "All contacts"
+			},
+			"response": []
+		},
+		{
+			"name": "6.3 Order a number range",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerOrderReference\": \"string\",\r\n  \"parameters\": {\r\n    \"voiceSiteId\": \"{{voiceSiteId}}\",\r\n    \"numberSearchId\": \"{{numberSearchId}}\",\r\n    \"dialZoneId\": \"{{dialZoneId}}\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customerCode}}/orders/didnumber",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customerCode}}",
+						"orders",
+						"didnumber"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. Create a portability request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"carrierDonor\": \"SFR\",\r\n  \"requestedPortingDate\": \"2020-07-10\",\r\n  \"customerComment\": \"string\",\r\n  \"defaultPublicNumber\": \"33145790960\",\r\n  \"ranges\": [\r\n    {\r\n      \"publicFrom\": \"33145790960\",\r\n      \"publicTo\": \"33145790969\",\r\n      \"privateFrom\": \"string\",\r\n      \"privateTo\": \"string\",\r\n      \"dialZoneId\": \"{{dialZoneId}}\"\r\n    }\r\n  ],\r\n  \"address\": {\r\n    \"a2\": \"{{a2}}\",\r\n    \"a3\": \"{{a3}}\",\r\n    \"a4\": \"{{a4}}\",\r\n    \"a5\": \"string\",\r\n    \"a6\": \"{{a6}}\",\r\n    \"hno\": \"{{hno}}\",\r\n    \"sts\": \"string\",\r\n    \"hns\": \"string\",\r\n    \"bld\": \"string\",\r\n    \"pc\": \"{{pc}}\",\r\n    \"addrExtInfo1\": \"94999\"\r\n  },\r\n  \"portabilityExtInfo1\": \"99999999999999\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customerCode}}/voicesites/{{voiceSiteId}}/portabilityrequests",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customerCode}}",
+						"voicesites",
+						"{{voiceSiteId}}",
+						"portabilityrequests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete site",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "1BjWMoNbfuFa2n2FoTLvGNWQAGup",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"type": "text",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"voiceSiteId\": \"{{voiceSiteId}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customer_code}}/orders/cancelrequests/voicesite",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customer_code}}",
+						"orders",
+						"cancelrequests",
+						"voicesite"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All contacts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90b485c0-82f1-4ea2-ba26-abbe2501cc5d",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"contact_role\", jsonData[0].role[0]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/6183/contacts",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"6183",
+						"contacts"
+					]
+				},
+				"description": "All contacts"
+			},
+			"response": []
+		},
+		{
+			"name": "Number move list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "1BjWMoNbfuFa2n2FoTLvGNWQAGup",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"type": "text",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					},
+					{
+						"key": "",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/numbermoverequests",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"numbermoverequests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Group list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "1BjWMoNbfuFa2n2FoTLvGNWQAGup",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"name": "Content-Type",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-BT-API-KEY",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/6183/voicesitegroups",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"6183",
+						"voicesitegroups"
+					]
+				},
+				"description": "All contacts"
+			},
+			"response": []
+		},
+		{
+			"name": "Create a number move request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "1BjWMoNbfuFa2n2FoTLvGNWQAGup",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"type": "text",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"numbermove_CUCM_to_DR\",\r\n  \"ranges\": [\r\n    {\r\n      \"publicFrom\": \"33157970000\",\r\n      \"publicTo\": \"33157970009\"\r\n    }\r\n  ],\r\n  \"options\": {\r\n    \"keepPrivateNumbers\": false,\r\n    \"keepOverflowNumbers\": false,\r\n    \"keepCliRules\": false,\r\n    \"keepDefaultPublicNumber\": false,\r\n    \"moveNonOrangeNumbers\": false\r\n  },\r\n  \"donorVoiceSite\": {\r\n    \"voiceSiteId\": \"5ebb14d951b3b8263eaa63d4\"\r\n  },\r\n  \"recipientVoiceSite\": {\r\n    \"voiceSiteId\": \"5ebb33ad51b3b8263eaa6881\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/6183/numbermoverequests",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"6183",
+						"numbermoverequests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit a number move request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "1BjWMoNbfuFa2n2FoTLvGNWQAGup",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"type": "text",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"status\": \"draft\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/6183/numbermoverequests/5ebc669351b3b8263eaa8248/status",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"6183",
+						"numbermoverequests",
+						"5ebc669351b3b8263eaa8248",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all contacts info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dee90370-fba7-4acf-88fb-c76bb9fe5dc2",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"contactId\", jsonData[0].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "1BjWMoNbfuFa2n2FoTLvGNWQAGup",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"type": "text",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"voiceSiteId\": \"{{voice_Site_Id}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customer_code}}/contacts?name=dummy",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customer_code}}",
+						"contacts"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "dummy"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a site details",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BTD_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"type": "text",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"carrierDonor\": \"SFR\",\r\n  \"requestedPortingDate\": \"2020-07-10\",\r\n  \"customerComment\": \"string\",\r\n  \"defaultPublicNumber\": \"string\",\r\n  \"ranges\": [\r\n    {\r\n      \"publicFrom\": \"33145790960\",\r\n      \"publicTo\": \"33145790969\",\r\n      \"privateFrom\": \"string\",\r\n      \"privateTo\": \"string\",\r\n      \"dialZoneId\": \"{{dialZoneId}}\",\r\n      \"rangeExtInfo1\": \"string\",\r\n      \"rangeExtInfo2\": \"string\",\r\n      \"rangeExtInfo3\": \"string\",\r\n      \"rangeExtInfo4\": \"string\"\r\n    }\r\n  ],\r\n  \"address\": {\r\n    \"a1\": \"string\",\r\n    \"a2\": \"string\",\r\n    \"a3\": \"string\",\r\n    \"a4\": \"string\",\r\n    \"a5\": \"string\",\r\n    \"a6\": \"string\",\r\n    \"hno\": \"string\",\r\n    \"sts\": \"string\",\r\n    \"hns\": \"string\",\r\n    \"flr\": \"string\",\r\n    \"bld\": \"string\",\r\n    \"room\": \"string\",\r\n    \"pc\": \"string\",\r\n    \"pcn\": \"string\",\r\n    \"pobox\": \"string\",\r\n    \"prd\": \"string\",\r\n    \"pod\": \"string\",\r\n    \"unit\": \"string\",\r\n    \"addrExtInfo1\": \"string\",\r\n    \"addrExtInfo2\": \"string\",\r\n    \"addrExtInfo3\": \"string\",\r\n    \"addrExtInfo4\": \"string\",\r\n    \"addrExtInfo5\": \"string\",\r\n    \"addrExtInfo6\": \"string\",\r\n    \"addrExtInfo7\": \"string\",\r\n    \"addrExtInfo8\": \"string\",\r\n    \"addrExtInfo9\": \"string\",\r\n    \"addrExtInfo10\": \"string\"\r\n  },\r\n  \"portabilityExtInfo1\": \"string\",\r\n  \"portabilityExtInfo2\": \"string\",\r\n  \"portabilityExtInfo3\": \"string\",\r\n  \"portabilityExtInfo4\": \"string\",\r\n  \"portabilityExtInfo5\": \"string\",\r\n  \"portabilityExtInfo6\": \"string\",\r\n  \"portabilityExtInfo7\": \"string\",\r\n  \"portabilityExtInfo8\": \"string\",\r\n  \"portabilityExtInfo9\": \"string\",\r\n  \"portabilityExtInfo10\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/requests/portabilityrequests?customerCode={{customerCode}}&technicalSiteName=JJ",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"requests",
+						"portabilityrequests"
+					],
+					"query": [
+						{
+							"key": "customerCode",
+							"value": "{{customerCode}}"
+						},
+						{
+							"key": "technicalSiteName",
+							"value": "JJ"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a contact",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "1BjWMoNbfuFa2n2FoTLvGNWQAGup",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-BT-API-KEY",
+						"type": "text",
+						"value": "3bde038e858888d769479243cb61490bd3b8020f"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"voiceSiteId\": \"{{voice_Site_Id}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.orange.com/btalk/beta/v1/customers/{{customer_code}}/contacts/{{contactId}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"orange",
+						"com"
+					],
+					"path": [
+						"btalk",
+						"beta",
+						"v1",
+						"customers",
+						"{{customer_code}}",
+						"contacts",
+						"{{contactId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
